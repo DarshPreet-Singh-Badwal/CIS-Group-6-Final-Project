@@ -1,0 +1,1502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Find a Chevron gas station near you. Explore Techron fuel, Journie Rewards, gift cards, and more. Quality fuel for better engine performance.">
+    <title>Chevron Gas Stations: Find a Station Near You - Journie Rewards</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================================
+           HCI Rule: Strive for Consistency — Unified design tokens
+           ensure every component shares the same visual language.
+           ============================================================ */
+        :root {
+            --primary-blue: #0033A0;
+            --primary-blue-dark: #002266;
+            --secondary-blue: #00B2E2;
+            --secondary-blue-light: #33C4E9;
+            --red: #E21836;
+            --red-dark: #b8122a;
+            --white: #FFFFFF;
+            --off-white: #F8F9FB;
+            --light-gray: #F0F2F5;
+            --medium-gray: #D1D5DB;
+            --dark-gray: #1F2937;
+            --text-secondary: #6B7280;
+            --transition-speed: 0.3s;
+            --transition-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+            --shadow-lg: 0 15px 35px rgba(0,0,0,0.15);
+            --shadow-xl: 0 25px 50px rgba(0,0,0,0.2);
+            --border-radius: 12px;
+            --border-radius-lg: 20px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--dark-gray);
+            background-color: var(--off-white);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color var(--transition-speed) ease;
+        }
+
+        /* ============================================================
+           HCI Rule: Accessibility — Allow keyboard users to bypass
+           repetitive navigation blocks (WCAG 2.4.1).
+           ============================================================ */
+        .skip-link {
+            position: absolute;
+            top: -60px;
+            left: 0;
+            background: var(--red);
+            color: var(--white);
+            padding: 12px 20px;
+            z-index: 9999;
+            font-weight: 700;
+            transition: top var(--transition-speed);
+            border-bottom-right-radius: 8px;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* ============================================================
+           HCI Rule: Visibility of System Status — Top bar shows
+           the user which brand context they are currently in.
+           ============================================================ */
+        .top-bar {
+            background: linear-gradient(135deg, var(--dark-gray), #111827);
+            color: rgba(255,255,255,0.85);
+            padding: 10px 5%;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.82em;
+            flex-wrap: wrap;
+            gap: 10px;
+            letter-spacing: 0.3px;
+        }
+        .top-bar-left, .top-bar-right {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        .top-bar a {
+            color: rgba(255,255,255,0.75);
+            transition: color var(--transition-speed), transform 0.2s;
+            padding: 2px 0;
+        }
+        .top-bar a:hover {
+            color: var(--secondary-blue);
+            transform: translateY(-1px);
+        }
+        .top-bar strong {
+            color: var(--secondary-blue-light);
+        }
+
+        /* ============================================================
+           HCI Rule: Consistency & Standards — Sticky header ensures
+           navigation is always available (persistent navigation).
+           ============================================================ */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 5%;
+            background: rgba(255, 255, 255, 0.97);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 3px solid var(--primary-blue);
+            flex-wrap: wrap;
+            gap: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            transition: box-shadow var(--transition-speed);
+        }
+        .header.scrolled {
+            box-shadow: 0 4px 30px rgba(0,0,0,0.12);
+        }
+
+        /* ============================================================
+           HCI Rule: Recognition rather than Recall — The familiar
+           Chevron logo is always visible, acting as a home anchor.
+           ============================================================ */
+        .logo-container a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+            transition: transform 0.2s ease;
+        }
+        .logo-container a:hover {
+            transform: scale(1.03);
+        }
+        .logo-img {
+            height: 48px;
+            width: auto;
+            border-radius: 4px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+        .logo-text {
+            font-size: 2em;
+            font-weight: 900;
+            color: var(--primary-blue);
+            letter-spacing: 0.5px;
+        }
+
+        /* ============================================================
+           HCI Rule: Match Between System & Real World — Navigation
+           uses familiar industry labels users already understand.
+           ============================================================ */
+        .main-nav {
+            display: flex;
+            gap: 8px;
+            font-weight: 600;
+            font-size: 0.95em;
+            align-items: center;
+        }
+        .main-nav a {
+            position: relative;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all var(--transition-speed) ease;
+        }
+        .main-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 50%;
+            transform: translateX(-50%) scaleX(0);
+            width: 60%;
+            height: 2px;
+            background: var(--red);
+            border-radius: 2px;
+            transition: transform var(--transition-speed) ease;
+        }
+        .main-nav a:hover {
+            color: var(--red);
+            background: rgba(226, 24, 54, 0.05);
+        }
+        .main-nav a:hover::after {
+            transform: translateX(-50%) scaleX(1);
+        }
+        .nav-divider {
+            width: 1px;
+            height: 20px;
+            background: var(--medium-gray);
+            margin: 0 4px;
+        }
+
+        /* ============================================================
+           HCI Rule: Aesthetic & Minimalist Design — The hero section
+           uses a powerful visual anchor to communicate context.
+           ============================================================ */
+        .hero {
+            background: linear-gradient(160deg, var(--primary-blue) 0%, var(--primary-blue-dark) 50%, #001133 100%);
+            color: var(--white);
+            padding: 70px 5% 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 178, 226, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(226, 24, 54, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .hero-main-image {
+            width: 100%;
+            max-width: 1000px;
+            height: auto;
+            border-radius: var(--border-radius-lg);
+            margin: 0 auto 45px auto;
+            display: block;
+            box-shadow: var(--shadow-xl);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            position: relative;
+            z-index: 1;
+        }
+        .hero-main-image:hover {
+            transform: scale(1.015) translateY(-5px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+        }
+        .hero h1 {
+            font-size: 3.2em;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.25);
+            position: relative;
+            z-index: 1;
+            line-height: 1.2;
+        }
+        .hero p {
+            font-size: 1.2em;
+            max-width: 750px;
+            margin: 0 auto 40px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+            line-height: 1.8;
+        }
+
+        /* ============================================================
+           HCI Rule: Proximity (Gestalt) — Search components are
+           grouped together to indicate they form a single feature.
+           ============================================================ */
+        .search-container {
+            background: var(--white);
+            color: var(--dark-gray);
+            padding: 45px;
+            border-radius: var(--border-radius-lg);
+            max-width: 720px;
+            margin: -65px auto 50px auto;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            z-index: 10;
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+        .search-container h2 {
+            margin-bottom: 12px;
+            font-size: 1.8em;
+            color: var(--primary-blue);
+        }
+        .search-container > p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+        .search-form {
+            display: flex;
+            gap: 12px;
+        }
+        .search-form input {
+            flex: 1;
+            padding: 16px 20px;
+            border: 2px solid var(--medium-gray);
+            border-radius: 10px;
+            font-size: 1em;
+            font-family: inherit;
+            transition: border var(--transition-speed), box-shadow var(--transition-speed);
+        }
+        .search-form input:focus {
+            border-color: var(--primary-blue);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(0, 51, 160, 0.1);
+        }
+        .search-form button {
+            padding: 16px 40px;
+            background: var(--red);
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.05em;
+            font-family: inherit;
+            transition: all var(--transition-speed);
+            white-space: nowrap;
+        }
+        .search-form button:hover {
+            background: var(--red-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(226, 24, 54, 0.35);
+        }
+
+        /* ============================================================
+           HCI Rule: Aesthetic & Minimalist Design — Color block
+           sections visually separate content types without clutter.
+           ============================================================ */
+        .info-bar {
+            background: linear-gradient(135deg, var(--secondary-blue), #0098C4);
+            color: var(--white);
+            text-align: center;
+            padding: 60px 5%;
+            position: relative;
+            overflow: hidden;
+        }
+        .info-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+        .info-bar h2 {
+            font-size: 2.2em;
+            margin-bottom: 18px;
+            position: relative;
+        }
+        .info-bar p {
+            position: relative;
+        }
+
+        /* ============================================================
+           HCI Rule: Consistency — Split sections maintain uniform
+           layout patterns so users build predictive mental models.
+           ============================================================ */
+        .section-split {
+            display: flex;
+            padding: 90px 5%;
+            gap: 60px;
+            align-items: center;
+            background: var(--white);
+        }
+        .section-split.alt-bg {
+            background-color: var(--light-gray);
+            flex-direction: row-reverse;
+        }
+        .split-content {
+            flex: 1;
+        }
+        .split-content h2 {
+            color: var(--primary-blue);
+            font-size: 2.4em;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+        .split-content h3 {
+            color: var(--text-secondary);
+            font-weight: 600;
+            margin-bottom: 18px;
+            font-size: 1.1em;
+        }
+        .split-content p {
+            font-size: 1.1em;
+            margin-bottom: 28px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+        .split-image {
+            flex: 1;
+            text-align: center;
+        }
+        .split-image img {
+            width: 100%;
+            max-width: 550px;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-lg);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        .split-image img:hover {
+            transform: translateY(-8px) rotate(-1deg);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* ============================================================
+           HCI Rule: Fitts's Law — Buttons are large enough to be
+           easy click targets, with clear visual affordance.
+           ============================================================ */
+        .btn {
+            display: inline-block;
+            padding: 14px 36px;
+            background: var(--primary-blue);
+            color: var(--white);
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.95em;
+            margin-right: 12px;
+            margin-top: 10px;
+            transition: all var(--transition-speed);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.15);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.5s, height 0.5s;
+        }
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 51, 160, 0.35);
+        }
+        .btn-dark {
+            background: var(--dark-gray);
+        }
+        .btn-dark:hover {
+            box-shadow: 0 8px 25px rgba(31, 41, 55, 0.35);
+        }
+
+        /* ============================================================
+           HCI Rule: Hick's Law — Breaking information into digestible
+           cards reduces cognitive load and decision time.
+           ============================================================ */
+        .grid-section {
+            padding: 90px 5%;
+            background: var(--white);
+            text-align: center;
+        }
+        .grid-section h2 {
+            color: var(--primary-blue);
+            font-size: 2.4em;
+            margin-bottom: 15px;
+        }
+        .grid-section > p {
+            color: var(--text-secondary);
+            margin-bottom: 50px;
+            font-size: 1.1em;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+        .card {
+            background: var(--off-white);
+            padding: 40px 32px;
+            border-radius: var(--border-radius-lg);
+            text-align: left;
+            transition: all var(--transition-speed) var(--transition-bounce);
+            border: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--secondary-blue));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+            background: var(--white);
+        }
+        .card-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 22px;
+            font-size: 1.5em;
+            color: var(--white);
+        }
+        .card h3 {
+            color: var(--primary-blue);
+            font-size: 1.4em;
+            margin-bottom: 8px;
+        }
+        .card .card-subtitle {
+            font-weight: 600;
+            color: var(--dark-gray);
+            margin-bottom: 12px;
+        }
+        .card p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ============================================================
+           Support Section — HCI Rule: Help & Documentation —
+           Providing accessible help resources for users.
+           ============================================================ */
+        .support-section {
+            padding: 90px 5%;
+            background: linear-gradient(180deg, var(--light-gray), var(--off-white));
+            text-align: center;
+        }
+        .support-section h2 {
+            color: var(--primary-blue);
+            font-size: 2.4em;
+            margin-bottom: 15px;
+        }
+        .support-section > p {
+            color: var(--text-secondary);
+            margin-bottom: 50px;
+            font-size: 1.1em;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .support-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .support-card {
+            background: var(--white);
+            padding: 35px 28px;
+            border-radius: var(--border-radius-lg);
+            text-align: center;
+            transition: all var(--transition-speed) ease;
+            border: 1px solid rgba(0,0,0,0.05);
+            cursor: pointer;
+        }
+        .support-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--secondary-blue);
+        }
+        .support-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, rgba(0, 51, 160, 0.08), rgba(0, 178, 226, 0.08));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.8em;
+            transition: background var(--transition-speed);
+        }
+        .support-card:hover .support-icon {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: var(--white);
+        }
+        .support-card h3 {
+            color: var(--primary-blue);
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        .support-card p {
+            color: var(--text-secondary);
+            font-size: 0.92em;
+            line-height: 1.6;
+        }
+
+        /* ============================================================
+           HCI Rule: Recognition rather than Recall — Footer
+           reinforces brand identity at the end of the journey.
+           ============================================================ */
+        .footer {
+            background: linear-gradient(180deg, var(--dark-gray), #111827);
+            color: var(--white);
+            padding: 70px 5% 35px;
+            text-align: center;
+        }
+        .footer-logo {
+            font-size: 2em;
+            font-weight: 800;
+            margin-bottom: 25px;
+        }
+        .footer-logo span {
+            background: linear-gradient(90deg, var(--secondary-blue), var(--secondary-blue-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 28px;
+            margin-bottom: 35px;
+            flex-wrap: wrap;
+        }
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.95em;
+            transition: color var(--transition-speed), transform 0.2s;
+            padding: 4px 0;
+        }
+        .footer-links a:hover {
+            color: var(--secondary-blue);
+            transform: translateY(-2px);
+        }
+        .footer-legal {
+            font-size: 0.85em;
+            color: rgba(255,255,255,0.4);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 30px;
+            margin-top: 30px;
+            line-height: 1.8;
+        }
+
+        /* ============================================================
+           Scroll-to-Top Button — HCI Rule: User Control & Freedom —
+           Users can easily return to top at any point in their scroll.
+           ============================================================ */
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            font-size: 1.3em;
+            cursor: pointer;
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all var(--transition-speed) ease;
+            box-shadow: 0 4px 15px rgba(0, 51, 160, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .scroll-top-btn.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .scroll-top-btn:hover {
+            background: var(--secondary-blue);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 178, 226, 0.5);
+        }
+
+        /* ============================================================
+           Chatbot Widget — HCI Rule: Help & Documentation —
+           Providing accessible, just-in-time help to users.
+           ============================================================ */
+        .chatbot-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--red), var(--red-dark));
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5em;
+            cursor: pointer;
+            z-index: 1001;
+            box-shadow: 0 6px 25px rgba(226, 24, 54, 0.45);
+            transition: all var(--transition-speed) ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .chatbot-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px rgba(226, 24, 54, 0.6);
+        }
+        .chatbot-toggle.active {
+            background: var(--dark-gray);
+            box-shadow: 0 6px 25px rgba(31, 41, 55, 0.45);
+        }
+        .chatbot-pulse {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: var(--red);
+            animation: pulse-ring 2s infinite;
+            pointer-events: none;
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(1); opacity: 0.5; }
+            100% { transform: scale(1.6); opacity: 0; }
+        }
+        .chatbot-window {
+            position: fixed;
+            bottom: 105px;
+            right: 30px;
+            width: 380px;
+            max-height: 500px;
+            background: var(--white);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-xl);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px) scale(0.95);
+            transition: all var(--transition-speed) ease;
+            border: 1px solid rgba(0,0,0,0.06);
+        }
+        .chatbot-window.open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+        .chatbot-header {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-dark));
+            color: var(--white);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .chatbot-header-avatar {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+        }
+        .chatbot-header-info h4 {
+            font-size: 1em;
+            margin-bottom: 2px;
+        }
+        .chatbot-header-info p {
+            font-size: 0.78em;
+            opacity: 0.8;
+        }
+        .chatbot-status-dot {
+            width: 8px;
+            height: 8px;
+            background: #34D399;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px;
+            animation: blink-status 2s infinite;
+        }
+        @keyframes blink-status {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        .chatbot-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            min-height: 250px;
+            background: var(--off-white);
+        }
+        .chatbot-msg {
+            max-width: 85%;
+            padding: 12px 16px;
+            border-radius: 16px;
+            font-size: 0.9em;
+            line-height: 1.5;
+            animation: msg-appear 0.3s ease;
+        }
+        @keyframes msg-appear {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .chatbot-msg.bot {
+            background: var(--white);
+            color: var(--dark-gray);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+            box-shadow: var(--shadow-sm);
+        }
+        .chatbot-msg.user {
+            background: var(--primary-blue);
+            color: var(--white);
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+        .chatbot-quick-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 6px;
+        }
+        .chatbot-quick-btn {
+            padding: 6px 14px;
+            background: rgba(0, 51, 160, 0.08);
+            color: var(--primary-blue);
+            border: 1px solid rgba(0, 51, 160, 0.15);
+            border-radius: 20px;
+            font-size: 0.8em;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        .chatbot-quick-btn:hover {
+            background: var(--primary-blue);
+            color: var(--white);
+        }
+        .chatbot-input-area {
+            display: flex;
+            padding: 14px;
+            gap: 10px;
+            border-top: 1px solid rgba(0,0,0,0.06);
+            background: var(--white);
+        }
+        .chatbot-input-area input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid var(--medium-gray);
+            border-radius: 25px;
+            font-size: 0.9em;
+            font-family: inherit;
+            transition: border var(--transition-speed);
+            outline: none;
+        }
+        .chatbot-input-area input:focus {
+            border-color: var(--primary-blue);
+        }
+        .chatbot-input-area button {
+            width: 42px;
+            height: 42px;
+            background: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .chatbot-input-area button:hover {
+            background: var(--secondary-blue);
+            transform: scale(1.08);
+        }
+
+        /* ============================================================
+           HCI Custom Tooltip — HCI Rule: Help & Documentation —
+           Contextual tooltips explain which HCI rule is applied.
+           ============================================================ */
+        [data-hci-tooltip] {
+            position: relative;
+        }
+        [data-hci-tooltip]::after {
+            content: attr(data-hci-tooltip);
+            position: absolute;
+            bottom: calc(100% + 10px);
+            left: 50%;
+            transform: translateX(-50%) translateY(5px);
+            background: rgba(31, 41, 55, 0.95);
+            color: var(--white);
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 0.78em;
+            font-weight: 500;
+            white-space: normal;
+            width: max-content;
+            max-width: 280px;
+            line-height: 1.5;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.25s ease;
+            pointer-events: none;
+            z-index: 9999;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            text-align: left;
+        }
+        [data-hci-tooltip]::before {
+            content: '';
+            position: absolute;
+            bottom: calc(100% + 4px);
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: rgba(31, 41, 55, 0.95);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.25s ease;
+            pointer-events: none;
+            z-index: 9999;
+        }
+        [data-hci-tooltip]:hover::after,
+        [data-hci-tooltip]:hover::before {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+        [data-hci-tooltip]:hover::before {
+            transform: translateX(-50%);
+        }
+
+        /* ============================================================
+           Fade-in Animation — HCI Rule: Feedback — Smooth transitions
+           provide visual feedback as content enters the viewport.
+           ============================================================ */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ============================================================
+           Responsive Design — HCI Rule: Flexibility & Efficiency —
+           The interface adapts to different screen sizes.
+           ============================================================ */
+        @media (max-width: 900px) {
+            .section-split, .section-split.alt-bg {
+                flex-direction: column;
+                text-align: center;
+                padding: 60px 5%;
+            }
+            .header {
+                flex-direction: column;
+                padding: 14px 5%;
+            }
+            .main-nav {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 4px;
+            }
+            .main-nav a {
+                padding: 6px 12px;
+                font-size: 0.88em;
+            }
+            .nav-divider {
+                display: none;
+            }
+            .search-form {
+                flex-direction: column;
+            }
+            .hero {
+                padding: 50px 5% 60px;
+            }
+            .hero h1 {
+                font-size: 2.2em;
+            }
+            .hero-main-image {
+                margin-top: 20px;
+            }
+            .chatbot-window {
+                width: calc(100vw - 30px);
+                right: 15px;
+                bottom: 100px;
+            }
+            .support-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .top-bar {
+                display: none;
+            }
+            .logo-text {
+                font-size: 1.5em;
+            }
+            .hero h1 {
+                font-size: 1.8em;
+            }
+            .search-container {
+                padding: 28px 20px;
+                margin-top: -40px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HCI Rule: User Control & Freedom — Skip link for keyboard accessibility -->
+    <a href="#main-content" class="skip-link"
+       title="HCI Rule: User Control & Freedom — Allowing keyboard users to bypass repetitive blocks of content."
+       data-hci-tooltip="HCI: User Control & Freedom — Skip navigation for keyboard accessibility">
+       Skip to main content
+    </a>
+
+    <!-- ============================================================
+         Top Utility Bar
+         HCI Rule: Visibility of System Status — Shows the current
+         brand context and quick utility links.
+         ============================================================ -->
+    <div class="top-bar">
+        <div class="top-bar-left">
+            <span class="brand-links">
+                <strong>Current site: Chevron</strong>
+                <a href="#" title="Navigate to On the Run brand site"
+                   data-hci-tooltip="HCI: Visibility of System Status — Highlighting related brand ecosystem options">On the Run</a> |
+                <a href="#" data-hci-tooltip="HCI: Consistency — Uniform link style across brand options">Pioneer</a> |
+                <a href="#" data-hci-tooltip="HCI: Consistency — Uniform link style across brand options">Ultramar</a> |
+                <a href="#" data-hci-tooltip="HCI: Consistency — Uniform link style across brand options">Fas Gas</a>
+            </span>
+        </div>
+        <div class="top-bar-right">
+            <nav aria-label="Secondary Navigation">
+                <a href="#" data-hci-tooltip="HCI: Fitts's Law — Easily clickable targets in the utility navigation">Fleet</a>
+                <a href="#" data-hci-tooltip="HCI: Consistency & Standards — Home link always navigates to the homepage">Home</a>
+                <a href="#" data-hci-tooltip="HCI: Recognition rather than Recall — Familiar label for gift cards">Gift Card</a>
+                <a href="#" data-hci-tooltip="HCI: Match Between System & Real World — Using familiar location-finding language">Find a location</a>
+                <span style="opacity: 0.4;">|</span>
+                <a href="#" data-hci-tooltip="HCI: Flexibility — Regional selection supports user preferences">BC British Columbia</a>
+                <a href="#" data-hci-tooltip="HCI: Flexibility — Language selection supports diverse user needs">EN English</a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         Main Header with Chevron Logo and Navigation
+         HCI Rule: Consistency & Standards — The logo always links
+         to the home page; sticky header ensures persistent navigation.
+         ============================================================ -->
+    <header class="header" id="page-top">
+        <div class="logo-container">
+            <a href="index2.html"
+               title="Chevron Home — Click to return to the home page"
+               data-hci-tooltip="HCI: Consistency & Standards — Logo always links to the Home Page">
+                <img src="ChevronLogo.png"
+                     alt="Chevron Logo — Click to return to home page"
+                     class="logo-img">
+                <span class="logo-text">Chevron</span>
+            </a>
+        </div>
+        <nav class="main-nav" aria-label="Primary Navigation">
+            <a href="#" data-hci-tooltip="HCI: Match Between System & Real World — Using familiar industry language">Products &amp; Services</a>
+            <a href="#" data-hci-tooltip="HCI: Consistency — Uniform navigation styling">Fleet</a>
+            <a href="#" data-hci-tooltip="HCI: Consistency — Uniform navigation styling">Commercial</a>
+            <div class="nav-divider"></div>
+            <a href="#support-section" data-hci-tooltip="HCI: Help & Documentation — Direct link to support resources">Support</a>
+            <a href="#" data-hci-tooltip="HCI: Match Between System & Real World — Clear label for contact">Contact Us</a>
+            <a href="#" data-hci-tooltip="HCI: Flexibility & Efficiency — Quick access for business partners">Become a Retailer</a>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <!-- ============================================================
+             Hero Section with Chevron Gas Station Image
+             HCI Rule: Aesthetic & Minimalist Design — High-quality
+             visual anchor communicates context immediately.
+             ============================================================ -->
+        <section class="hero">
+            <img src="Chevron_gas_station.jpg"
+                 alt="Chevron Gas Station — A full-service Chevron fuel station with canopy and fuel pumps"
+                 title="Chevron gas station exterior view"
+                 class="hero-main-image"
+                 data-hci-tooltip="HCI: Aesthetic & Minimalist Design — High-quality, relevant visual anchor communicates context">
+
+            <h1 data-hci-tooltip="HCI: Visual Hierarchy — Largest text commands attention first to convey the core value proposition">Better performance starts with Techron.</h1>
+            <p>Techron cleans and protects vital engine parts as you drive, helping your vehicle perform at its very best. Experience the unbeatable cleaning power.</p>
+        </section>
+
+        <!-- ============================================================
+             Search Form — overlapping hero for modern visual appeal
+             HCI Rule: Proximity (Gestalt) — Grouped search components
+             clearly indicate they form a single feature.
+             ============================================================ -->
+        <div class="search-container fade-in"
+             data-hci-tooltip="HCI: Proximity (Gestalt) — Grouping search components together makes the core feature immediately obvious">
+            <h2>Find a gas station.</h2>
+            <p>Be sure to have a Chevron full service gas station on your radar. Discover your closest stop below.</p>
+            <form class="search-form" id="stationSearchForm">
+                <input type="text" id="locationInput"
+                       placeholder="Enter City, Province, or Postal Code"
+                       required
+                       aria-label="Search location input"
+                       data-hci-tooltip="HCI: Error Prevention — Required attribute prevents empty submissions; placeholder guides input format">
+                <button type="submit"
+                        data-hci-tooltip="HCI: Affordance & Feedback — High-contrast color makes the button obvious; hover states confirm interactability">
+                    Search
+                </button>
+            </form>
+        </div>
+
+        <!-- ============================================================
+             Info Bar Section
+             HCI Rule: Aesthetic & Minimalist Design — Color block
+             separates content types without visual clutter.
+             ============================================================ -->
+        <section class="info-bar fade-in"
+                 data-hci-tooltip="HCI: Aesthetic & Minimalist Design — Color blocks visually separate content types without clutter">
+            <h2>Why Choose Techron?</h2>
+            <p style="font-size: 1.15em; max-width: 900px; margin: 0 auto; line-height: 1.8;">Our patented fuel additive is scientifically proven to optimize fuel economy, maximize power, and minimize emissions by keeping your engine free of carbon buildup. When you fill up at Chevron, you aren't just fueling your car; you're protecting its lifeblood.</p>
+        </section>
+
+        <!-- ============================================================
+             Split Content Sections
+             HCI Rule: Consistency — Uniform layout patterns allow
+             users to build predictive mental models.
+             ============================================================ -->
+        <section class="section-split fade-in">
+            <div class="split-content">
+                <h2>Save Big.</h2>
+                <h3>Chevron Gift Cards</h3>
+                <p>One Fuel Card goes a long way. Literally. The longer someone spends behind the wheel, the more a Chevron Fuel Gift Card makes sense! Perfect for holidays, birthdays, or just to say thanks.</p>
+                <a href="#" class="btn"
+                   data-hci-tooltip="HCI: Consistency — Uniform button styles reduce cognitive load across the entire site">
+                   Learn More
+                </a>
+            </div>
+            <div class="split-image">
+                <img src="https://via.placeholder.com/600x400/0033A0/FFFFFF?text=Chevron+Gift+Card"
+                     alt="Chevron Gas Gift Card — Perfect for gifting fuel to friends and family"
+                     data-hci-tooltip="HCI: Recognition rather than Recall — Visualizing the product rather than just describing it">
+            </div>
+        </section>
+
+        <section class="section-split alt-bg fade-in">
+            <div class="split-content">
+                <h2>Let the savings be your fuel.</h2>
+                <p>Go for it and get a little extra! Download the Journie app and unlock endless rewards, exclusive discounts, and points on every fill-up. Pretty sweet, right?</p>
+                <a href="#" class="btn"
+                   data-hci-tooltip="HCI: Flexibility & Efficiency of Use — Multiple download paths for different user devices">
+                   App Store
+                </a>
+                <a href="#" class="btn btn-dark"
+                   data-hci-tooltip="HCI: Flexibility & Efficiency of Use — Multiple download paths for different user devices">
+                   Google Play
+                </a>
+            </div>
+            <div class="split-image">
+                <img src="https://via.placeholder.com/600x400/E21836/FFFFFF?text=Journie+Rewards+App"
+                     alt="Journie Rewards mobile app — Download to earn rewards on every fill-up"
+                     data-hci-tooltip="HCI: Visibility of System Status — Showing the app interface builds trust before download">
+            </div>
+        </section>
+
+        <!-- ============================================================
+             Feature Cards Grid
+             HCI Rule: Hick's Law — Breaking complex information into
+             digestible cards reduces decision time.
+             ============================================================ -->
+        <section class="grid-section fade-in">
+            <h2>Convenience you can always count on.</h2>
+            <p>Explore everything your local Chevron station has to offer, from quick snacks to full-service dining.</p>
+            <div class="grid">
+                <div class="card"
+                     data-hci-tooltip="HCI: Hick's Law — Breaking information into digestible cards reduces decision time">
+                    <div class="card-icon" aria-hidden="true">🏪</div>
+                    <h3>ON the RUN Convenience Store</h3>
+                    <p class="card-subtitle">Here when you need us.</p>
+                    <p>As our name suggests, we're the convenience store for the busy. Our bright, inviting stores offer great food and coffee, as well as a top rewards program in Journie Rewards.</p>
+                    <a href="#" class="btn" style="margin-top: 20px;"
+                       data-hci-tooltip="HCI: Fitts's Law — Button is large enough to be an easy click target">
+                       Learn More
+                    </a>
+                </div>
+                <div class="card"
+                     data-hci-tooltip="HCI: Consistency — Identical card structure so users intuitively know where to find headers and text">
+                    <div class="card-icon" aria-hidden="true">🍔</div>
+                    <h3>Triple O's Restaurant.</h3>
+                    <p class="card-subtitle">Palate-pleasing convenience.</p>
+                    <p>Whether it's a Triple O's, an A&amp;W, or a Tim Hortons, our full-service stations cater to the most discerning of taste buds. Bon appétit!</p>
+                </div>
+                <div class="card"
+                     data-hci-tooltip="HCI: Chunking — Grouping related text concepts together to aid memory and reading speed">
+                    <div class="card-icon" aria-hidden="true">🎁</div>
+                    <h3>Chevron Gift Card.</h3>
+                    <p class="card-subtitle">Accelerate your gift-giving.</p>
+                    <p>Why wait? Stock up on Chevron gift cards – they make the most convenient gift you can get. For both the giver and the giftee.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             Support Section
+             HCI Rule: Help & Documentation — Providing dedicated,
+             easily accessible help resources to users.
+             ============================================================ -->
+        <section class="support-section fade-in" id="support-section">
+            <h2 data-hci-tooltip="HCI: Help & Documentation — Dedicated section for user assistance resources">Need Help? We're Here for You.</h2>
+            <p>Find the support you need, whether it's about your account, rewards, or finding a station near you.</p>
+            <div class="support-grid">
+                <div class="support-card"
+                     data-hci-tooltip="HCI: Recognition rather than Recall — Icon + label helps users quickly identify options"
+                     tabindex="0" role="button" aria-label="Frequently Asked Questions">
+                    <div class="support-icon" aria-hidden="true">❓</div>
+                    <h3>FAQs</h3>
+                    <p>Find quick answers to the most commonly asked questions about Chevron products and services.</p>
+                </div>
+                <div class="support-card"
+                     data-hci-tooltip="HCI: Flexibility — Offering email contact for users who prefer asynchronous communication"
+                     tabindex="0" role="button" aria-label="Email Support">
+                    <div class="support-icon" aria-hidden="true">✉️</div>
+                    <h3>Email Support</h3>
+                    <p>Send us a detailed message and our support team will get back to you within 24 hours.</p>
+                </div>
+                <div class="support-card"
+                     data-hci-tooltip="HCI: Match Between System & Real World — Phone icon universally represents voice communication"
+                     tabindex="0" role="button" aria-label="Call Us">
+                    <div class="support-icon" aria-hidden="true">📞</div>
+                    <h3>Call Us</h3>
+                    <p>Speak directly with a customer service representative. Available Monday–Friday, 8 AM – 6 PM.</p>
+                </div>
+                <div class="support-card"
+                     data-hci-tooltip="HCI: Help & Documentation — Live chat provides immediate, contextual assistance"
+                     tabindex="0" role="button" aria-label="Live Chat Support">
+                    <div class="support-icon" aria-hidden="true">💬</div>
+                    <h3>Live Chat</h3>
+                    <p>Chat with our support team in real time for instant assistance with your questions or concerns.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ============================================================
+         Footer
+         HCI Rule: Recognition rather than Recall — Reinforcing brand
+         identity at the end of the user's journey.
+         ============================================================ -->
+    <footer class="footer">
+        <div class="footer-logo"
+             data-hci-tooltip="HCI: Recognition rather than Recall — Reinforcing brand identity at the end of the user journey">
+            <span>Chevron</span>
+        </div>
+        <div class="footer-links" aria-label="Footer Navigation">
+            <a href="#" data-hci-tooltip="HCI: Help & Documentation — Legal documents support user trust">Terms of Use</a>
+            <a href="#" data-hci-tooltip="HCI: Help & Documentation — Privacy policy supports transparency">Privacy Policy</a>
+            <a href="#" data-hci-tooltip="HCI: Flexibility — Business partnership entry point">Become a Retailer</a>
+            <a href="#" data-hci-tooltip="HCI: Flexibility — Career opportunities link">Careers</a>
+            <a href="#support-section" data-hci-tooltip="HCI: Help & Documentation — Quick access to support from footer">Support</a>
+            <a href="#" data-hci-tooltip="HCI: Flexibility — Language selection for diverse user needs">EN English</a>
+        </div>
+        <div class="footer-legal">
+            <p>&copy; Parkland Corporation 2026. All rights reserved.</p>
+            <p>Chevron&reg; and the Chevron Logo are registered trademarks of Chevron Intellectual Property LLC, used under license by Parkland Corporation.</p>
+        </div>
+    </footer>
+
+    <!-- ============================================================
+         Scroll-to-Top Button
+         HCI Rule: User Control & Freedom — Allows users to quickly
+         return to the top of the page after scrolling down.
+         ============================================================ -->
+    <button class="scroll-top-btn" id="scrollTopBtn"
+            aria-label="Scroll to top of page"
+            data-hci-tooltip="HCI: User Control & Freedom — Return to the top of the page instantly">
+        ↑
+    </button>
+
+    <!-- ============================================================
+         Chatbot Widget
+         HCI Rule: Help & Documentation — Providing always-available
+         help through a contextual chatbot interface.
+         ============================================================ -->
+    <button class="chatbot-toggle" id="chatbotToggle"
+            aria-label="Open help chatbot"
+            data-hci-tooltip="HCI: Help & Documentation — Always-available help through chatbot">
+        <span class="chatbot-pulse"></span>
+        💬
+    </button>
+
+    <div class="chatbot-window" id="chatbotWindow" role="dialog" aria-label="Help Chatbot">
+        <div class="chatbot-header">
+            <div class="chatbot-header-avatar">⛽</div>
+            <div class="chatbot-header-info">
+                <h4>Chevron Assistant</h4>
+                <p><span class="chatbot-status-dot"></span>Online — Ready to help</p>
+            </div>
+        </div>
+        <div class="chatbot-messages" id="chatbotMessages">
+            <div class="chatbot-msg bot">
+                👋 Hi there! Welcome to Chevron. How can I help you today?
+                <div class="chatbot-quick-actions">
+                    <button class="chatbot-quick-btn" onclick="sendQuickMessage('Find a gas station')"
+                            data-hci-tooltip="HCI: Recognition rather than Recall — Pre-set options reduce typing effort">
+                        📍 Find a station
+                    </button>
+                    <button class="chatbot-quick-btn" onclick="sendQuickMessage('Tell me about Journie Rewards')"
+                            data-hci-tooltip="HCI: Recognition rather than Recall — Pre-set options reduce typing effort">
+                        🎁 Journie Rewards
+                    </button>
+                    <button class="chatbot-quick-btn" onclick="sendQuickMessage('I need help with my account')"
+                            data-hci-tooltip="HCI: Recognition rather than Recall — Pre-set options reduce typing effort">
+                        👤 Account Help
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="chatbot-input-area">
+            <input type="text" id="chatbotInput"
+                   placeholder="Type your message..."
+                   aria-label="Type your message to the chatbot"
+                   data-hci-tooltip="HCI: Error Prevention — Placeholder text guides the user on expected input">
+            <button onclick="sendChatMessage()"
+                    aria-label="Send message"
+                    data-hci-tooltip="HCI: Affordance — Send button clearly indicates message dispatch action">
+                ➤
+            </button>
+        </div>
+    </div>
+
+    <script>
+        /* ============================================================
+           HCI Rule: Design Dialogs to Yield Closure — Search form
+           gives immediate feedback on submission.
+           ============================================================ */
+        document.getElementById('stationSearchForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const location = document.getElementById('locationInput').value;
+            alert(`Searching for Chevron stations near: ${location}\n\nHCI Rule Applied: Help Users Recognize, Diagnose, and Recover from Errors — Providing immediate system response to user input.`);
+        });
+
+        /* ============================================================
+           Scroll-to-Top Button Logic
+           HCI Rule: User Control & Freedom — The button appears after
+           the user scrolls down, giving them a way to return to top.
+           ============================================================ */
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+        const header = document.querySelector('.header');
+
+        window.addEventListener('scroll', function() {
+            // Show scroll-to-top button after 400px of scroll
+            if (window.scrollY > 400) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+
+            // Add shadow effect to header on scroll
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        /* ============================================================
+           Chatbot Toggle Logic
+           HCI Rule: Help & Documentation — Toggleable chat window
+           provides on-demand help without obstructing the page.
+           ============================================================ */
+        const chatbotToggle = document.getElementById('chatbotToggle');
+        const chatbotWindow = document.getElementById('chatbotWindow');
+        const chatbotInput = document.getElementById('chatbotInput');
+        const chatbotMessages = document.getElementById('chatbotMessages');
+
+        chatbotToggle.addEventListener('click', function() {
+            const isOpen = chatbotWindow.classList.toggle('open');
+            chatbotToggle.classList.toggle('active');
+
+            // Change icon based on state
+            if (isOpen) {
+                chatbotToggle.innerHTML = '✕';
+                chatbotInput.focus();
+            } else {
+                chatbotToggle.innerHTML = '<span class="chatbot-pulse"></span>💬';
+            }
+        });
+
+        // Send message on Enter key
+        chatbotInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendChatMessage();
+            }
+        });
+
+        function sendChatMessage() {
+            const message = chatbotInput.value.trim();
+            if (!message) return;
+
+            addMessage(message, 'user');
+            chatbotInput.value = '';
+
+            // Simulate bot response
+            setTimeout(() => {
+                const response = getBotResponse(message);
+                addMessage(response, 'bot');
+            }, 800);
+        }
+
+        function sendQuickMessage(message) {
+            addMessage(message, 'user');
+            setTimeout(() => {
+                const response = getBotResponse(message);
+                addMessage(response, 'bot');
+            }, 800);
+        }
+
+        function addMessage(text, type) {
+            const msg = document.createElement('div');
+            msg.className = `chatbot-msg ${type}`;
+            msg.textContent = text;
+            chatbotMessages.appendChild(msg);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+
+        function getBotResponse(message) {
+            const lower = message.toLowerCase();
+            if (lower.includes('station') || lower.includes('location') || lower.includes('find')) {
+                return '📍 You can find your nearest Chevron station using the search bar at the top of the page. Just enter your city, province, or postal code!';
+            } else if (lower.includes('reward') || lower.includes('journie') || lower.includes('points')) {
+                return '🎁 Journie Rewards lets you earn points on every fill-up! Download the app from the App Store or Google Play to get started and unlock exclusive discounts.';
+            } else if (lower.includes('account') || lower.includes('login') || lower.includes('password')) {
+                return '👤 For account help, please visit our Support section below or call our customer service at 1-800-CHEVRON. We\'re happy to assist!';
+            } else if (lower.includes('gift') || lower.includes('card')) {
+                return '🎁 Chevron Gift Cards are available at any Chevron station! They make the perfect gift for anyone who drives. Check the Gift Cards section for more details.';
+            } else if (lower.includes('techron') || lower.includes('fuel') || lower.includes('gas')) {
+                return '⛽ Techron is our patented fuel additive that cleans and protects your engine as you drive. It helps optimize fuel economy and maximize power!';
+            } else if (lower.includes('hello') || lower.includes('hi') || lower.includes('hey')) {
+                return '👋 Hello! How can I assist you today? Feel free to ask about our stations, rewards, or any of our services.';
+            } else {
+                return '🤔 Thanks for reaching out! For specific inquiries, I\'d recommend checking our FAQ section or contacting our support team at 1-800-CHEVRON. Is there anything else I can help with?';
+            }
+        }
+
+        /* ============================================================
+           Fade-in Scroll Animation
+           HCI Rule: Feedback — Elements smoothly animate into view
+           as the user scrolls, providing visual feedback.
+           ============================================================ */
+        const fadeElements = document.querySelectorAll('.fade-in');
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const fadeObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    fadeObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        fadeElements.forEach(el => fadeObserver.observe(el));
+    </script>
+</body>
+</html>
