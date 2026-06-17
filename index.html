@@ -381,8 +381,15 @@
         }
 
         @keyframes dropdown-appear {
-            from { opacity: 0; transform: translateY(-8px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .station-dropdown-item {
@@ -1439,8 +1446,8 @@
             <p>Be sure to have a Chevron full service gas station on your radar. Discover your closest stop below.</p>
             <form class="search-form" id="stationSearchForm" autocomplete="off">
                 <div class="search-input-wrapper">
-                    <input type="text" id="locationInput" placeholder="Click here to browse Chevron stations worldwide" required
-                        aria-label="Search location input"
+                    <input type="text" id="locationInput" placeholder="Click here to browse Chevron stations worldwide"
+                        required aria-label="Search location input"
                         data-hci-tooltip="HCI: Recognition rather than Recall — Dropdown shows known station locations so users can select rather than type from memory">
                     <div class="station-dropdown" id="stationDropdown">
                         <div class="station-dropdown-header">🇨🇦 Canada</div>
@@ -1681,8 +1688,8 @@
                     data-hci-tooltip="HCI: Flexibility & Efficiency of Use — Direct link to iOS App Store for Apple device users">
                     <img src="AppleStore.png" alt="Download Chevron app on the Apple App Store">
                 </a>
-                <a href="https://play.google.com/store/apps/details?id=com.stuzo.chevron&hl=en_CA" target="_blank" rel="noopener noreferrer"
-                    class="store-badge"
+                <a href="https://play.google.com/store/apps/details?id=com.stuzo.chevron&hl=en_CA" target="_blank"
+                    rel="noopener noreferrer" class="store-badge"
                     data-hci-tooltip="HCI: Flexibility & Efficiency of Use — Direct link to Google Play Store for Android device users">
                     <img src="GooglePlay.png" alt="Get Chevron app on Google Play">
                 </a>
